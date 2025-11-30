@@ -1,0 +1,3 @@
+@import "./Components/style-global/global.css";
+@import "./Components/style-global/main_content.css";
+@import "tailwindcss";

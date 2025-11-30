@@ -1,0 +1,126 @@
+/* <------------------------ awal main ------------------------> */
+main{
+    background-color: var(--warna_main);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.klik {
+    position: absolute;
+    top: 50%;
+    left: 15vw;
+    transform: translateY(-50%);
+    width: 70vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    pointer-events: none;
+}
+
+
+#sebelum,
+#sesudah{
+    width: 4vw;
+    aspect-ratio: 1 / 1;
+    display: none;
+    pointer-events: fill;
+}
+
+#sebelum:hover,
+#sesudah:hover{
+    border: 2px solid rgba(0, 0, 0, 0.274);
+    border-radius: 50px;
+}
+
+#sebelum{
+    margin-right: auto;
+}
+
+/* penting */
+.judul_daftar{
+    width: 90%;
+    display: flex;
+    margin: auto;
+    border-bottom: 2px solid black;
+    margin-bottom: auto;
+    align-items: flex-end;
+    font-size: 2vw;
+}
+/* penting */
+
+/* kotak testimoni */
+.komentar_brosur{
+    background: var(--warna_komentar);
+    width: 100vw;
+    min-height: 10vh;
+    max-height: 95vh;
+    overflow-y: hidden;
+}
+
+.semua_komentar{
+    width: 90%;
+    min-height: 10vh;
+    max-height: 85vh;
+    display: flex;
+    margin: auto;
+    gap: 2vh;
+    flex-wrap: wrap;
+    margin-top: 0.8%;
+    padding: 1%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.semua_komentar::-webkit-scrollbar {
+    display: none;
+}
+
+/* komponen komentar */
+.kotak_komentar{
+    width: 100%;
+    height: calc(85vh / 4);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.foto_komentar{
+    border: 2px solid rgba(0, 0, 0, 0.137);
+    width: 120px;
+    height: 100%;
+    margin-right: auto;
+    background-image: url('gambar/anonimus.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.isi_komentar{
+    width: 78vw;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nama_komentar{
+    border: 2px solid rgba(0, 0, 0, 0.137);
+    width: 100%;
+    height: 30%;
+    margin-bottom: auto;
+}
+
+.komentar{
+    border: 2px solid rgba(0, 0, 0, 0.137);
+    width: 100%;
+    height: 68%;
+}
+
+/* <------------------------ akhir main ------------------------> */
