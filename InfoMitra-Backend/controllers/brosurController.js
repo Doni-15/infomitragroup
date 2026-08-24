@@ -1,6 +1,12 @@
 import Brosur from '../models/brosurModel.js';
 import fs from 'fs';
 import path from 'path';
+import { runtimeConfig } from '../config/env.js';
+
+const uploadUrl = (filename) => new URL(
+    `/uploads/${encodeURIComponent(filename)}`,
+    runtimeConfig.publicBaseUrl
+).toString();
 
 export const getVipBrosurs = async (req, res) => {
     try {
@@ -81,9 +87,7 @@ export const createBrosur = async (req, res) => {
         return res.status(400).json({ msg: "Email User pemilik brosur wajib diisi!" });
     }
 
-    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
-    const host = req.get('host');
-    const gambar_url = `${protocol}://${host}/uploads/${req.file.filename}`;
+    const gambar_url = uploadUrl(req.file.filename);
 
     try {
         const newBrosur = await Brosur.create({ 
@@ -126,10 +130,7 @@ export const updateBrosur = async (req, res) => {
         let finalGambarUrl = oldData.gambar_url;
 
         if (req.file) {
-            const protocol = req.headers['x-forwarded-proto'] || req.protocol;
-            const host = req.get('host');
-
-            finalGambarUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
+            finalGambarUrl = uploadUrl(req.file.filename);
             
             if(oldData.gambar_url) {
                 const oldFileName = oldData.gambar_url.split('/').pop();

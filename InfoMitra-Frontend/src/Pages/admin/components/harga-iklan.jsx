@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { hargaIklanService } from '../../../services/hargaIklanService';
 import { toast } from 'react-hot-toast';
 
@@ -14,7 +14,7 @@ export function HargaIklan() {
         try {
             const data = await hargaIklanService.getAllPackages();
             setPackages(data || []); 
-        } catch (error) {
+        } catch {
             toast.error("Gagal memuat data paket. Pastikan server menyala.");
         } finally {
             setLoading(false);

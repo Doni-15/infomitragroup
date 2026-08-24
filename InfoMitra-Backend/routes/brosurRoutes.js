@@ -1,7 +1,7 @@
 import express from 'express';
 
 import authMiddleware from '../middleware/authMiddleware.js'; 
-import upload from '../middleware/uploadMiddleware.js'; 
+import upload, { validateUploadedImage } from '../middleware/uploadMiddleware.js';
 
 import { 
     getVipBrosurs,
@@ -22,8 +22,8 @@ router.get('/my', authMiddleware(), getMyBrosurs);
 
 router.get('/admin/all', authMiddleware(['admin']), getAllBrosursAdmin);
 
-router.post('/', authMiddleware(['admin']), upload.single('gambar'), createBrosur);
-router.put('/:id', authMiddleware(['admin']), upload.single('gambar'), updateBrosur);
+router.post('/', authMiddleware(['admin']), upload.single('gambar'), validateUploadedImage, createBrosur);
+router.put('/:id', authMiddleware(['admin']), upload.single('gambar'), validateUploadedImage, updateBrosur);
 router.delete('/:id', authMiddleware(['admin']), deleteBrosur);
 
 router.get('/:id', getBrosurById);

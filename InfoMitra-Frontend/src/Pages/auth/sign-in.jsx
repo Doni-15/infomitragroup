@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { InputBox, SideBarAunt } from "@/components";
+import { InputBox, SideBarAunt } from "@/Components";
 import { authService } from "@/services/authService"; 
 
 export function SignIn({ setUser }){

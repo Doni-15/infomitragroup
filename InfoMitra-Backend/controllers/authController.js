@@ -1,10 +1,7 @@
 import pool from '../config/db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-
-dotenv.config();
-const SECRET_KEY = process.env.JWT_SECRET;
+import { runtimeConfig } from '../config/env.js';
 
 export const register = async (req, res) => {
     const { nama, email, password } = req.body;
@@ -64,7 +61,7 @@ export const login = async (req, res) => {
             created_at: user.created_at
         };
         
-        const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '7d' });
+        const token = jwt.sign(payload, runtimeConfig.jwtSecret, { expiresIn: '7d' });
 
         res.json({ 
             message: "Login Berhasil",

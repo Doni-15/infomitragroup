@@ -1,12 +1,5 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const SECRET_KEY = process.env.JWT_SECRET;
-if (!SECRET_KEY) {
-    throw new Error("FATAL ERROR: JWT_SECRET missing in env");
-}
+import { runtimeConfig } from '../config/env.js';
 
 const authMiddleware = (roles = []) => {
     return (req, res, next) => {
@@ -26,7 +19,7 @@ const authMiddleware = (roles = []) => {
         }
 
         try {
-            const decoded = jwt.verify(token, SECRET_KEY);
+            const decoded = jwt.verify(token, runtimeConfig.jwtSecret);
             req.user = decoded;
             req.userId = decoded.userId; 
 

@@ -4,7 +4,7 @@ import {
     containerVariants, itemVariants
 } from "@/Components";
 
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 export function TentangKami(){
     TitlePages("Tentang Kami | ");
@@ -35,14 +35,14 @@ const isiTujuan = [
 export const TujuanKami = () => {
     return(
         <>
-            <motion.section className="flex flex-wrap md:flex-nowrap px-3 md:px-10 pb-26 bg-[#ececec] justify-center gap-10 md:gap-x-10" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            <Motion.section className="flex flex-wrap md:flex-nowrap px-3 md:px-10 pb-26 bg-[#ececec] justify-center gap-10 md:gap-x-10" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
                 {isiTujuan.map((item) => (
-                    <motion.div key={item.id} className="w-full md:w-1/2 p-2 bg-white md:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-justify md:text-center rounded-lg" variants={itemVariants}>
+                    <Motion.div key={item.id} className="w-full md:w-1/2 p-2 bg-white md:p-5 shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-justify md:text-center rounded-lg" variants={itemVariants}>
                         <h1 className="text-center font-bold md:text-2xl text-xl mb-2 mt-0">{item.judul}</h1>
                         <p className="text-base md:text-lg">{item.isi}</p>
-                    </motion.div>
+                    </Motion.div>
                 ))}
-            </motion.section>
+            </Motion.section>
         </>
     );
 };

@@ -29,7 +29,7 @@ export const authService = {
         if (userStr) {
             try {
                 return JSON.parse(userStr);
-            } catch (error) {
+            } catch {
                 console.error("Data user di storage rusak, mereset session.");
                 localStorage.removeItem('user');
                 localStorage.removeItem('token');

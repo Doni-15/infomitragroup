@@ -15,7 +15,7 @@ export function KomentarUser() {
             const data = await testimoniService.getAllAdmin(); 
             setTestimonis(data);
         } 
-        catch (error) {
+        catch {
             toast.error("Gagal mengambil data komentar. Periksa koneksi.");
         } 
         finally {

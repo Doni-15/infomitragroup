@@ -1,17 +1,22 @@
 import { Pool } from "pg";
-import dotenv from "dotenv";
+import { databaseCa, runtimeConfig } from './env.js';
 
-dotenv.config();
-
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = runtimeConfig.isProduction;
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+const useTls = isProduction || process.env.DB_SSL === 'true';
+const ca = databaseCa();
+const ssl = useTls
+    ? { rejectUnauthorized: true, ...(ca ? { ca } : {}) }
+    : false;
 
 const pool = new Pool({
+    ...(connectionString ? { connectionString } : {}),
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl: isProduction ? { rejectUnauthorized: false } : false, 
+    ssl,
 });
 
 pool.on("connect", () => {

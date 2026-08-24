@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../Components/style-global/KosWanitaAzka.css";
-import { fotoTeras, fotoRumah, fotoRumah1, fotoKamar } from "@/assets/KosWanitaAzka";
+import { fotoTeras, fotoRumah, fotoRumah1, fotoKamar } from "@/assets/kosWanitaAzka";
 
 export function KosWanitaAzka() {
   const [gambarBesar, setGambarBesar] = useState(null);

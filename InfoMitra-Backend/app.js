@@ -1,17 +1,16 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
+import { runtimeConfig, validateRuntimeConfig } from './config/env.js';
 
 import authRoutes from './routes/authRoutes.js';
 import brosurRoutes from './routes/brosurRoutes.js';
 import hargaIklanRoutes from './routes/hargaIklanRoutes.js';
 import testimoniRoute from './routes/komentarRoutes.js';
 
-dotenv.config();
+validateRuntimeConfig();
 
 const app = express();
 
@@ -23,14 +22,19 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: runtimeConfig.clientUrl,
     credentials: true
 }));
 
-app.use(express.json()); 
+app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 
-app.use('/uploads', express.static(uploadDir));
+app.use('/uploads', express.static(uploadDir, {
+    setHeaders: (res) => {
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.setHeader('Content-Security-Policy', "default-src 'none'; sandbox");
+    },
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/brosur', brosurRoutes);
@@ -46,7 +50,9 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
     res.status(statusCode).json({
-        message: err.message,
+        message: process.env.NODE_ENV === 'production' && statusCode >= 500
+            ? 'Terjadi kesalahan pada server.'
+            : err.message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack,
     });
 });

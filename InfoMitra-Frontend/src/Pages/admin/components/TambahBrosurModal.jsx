@@ -25,13 +25,6 @@ export function TambahBrosurModal({ isOpen, onClose, onSuccess }) {
     const [previewUrl, setPreviewUrl] = useState(null);
 
     useEffect(() => {
-        if (isOpen) {
-        } else {
-            resetForm();
-        }
-    }, [isOpen]);
-
-    useEffect(() => {
         return () => {
             if (previewUrl) {
                 URL.revokeObjectURL(previewUrl);
@@ -50,6 +43,11 @@ export function TambahBrosurModal({ isOpen, onClose, onSuccess }) {
         setPreviewUrl(null);
         setEmailStatus("idle");
         setErrorMessage("");
+    };
+
+    const handleClose = () => {
+        resetForm();
+        onClose();
     };
 
     const handleEmailChange = (e) => {
@@ -108,7 +106,7 @@ export function TambahBrosurModal({ isOpen, onClose, onSuccess }) {
             
             toast.success("Brosur berhasil diterbitkan!");
             onSuccess();
-            onClose();
+            handleClose();
 
         } catch (error) {
             const status = error.response?.status;
@@ -139,7 +137,7 @@ export function TambahBrosurModal({ isOpen, onClose, onSuccess }) {
                     <h2 className="text-xl font-bold flex items-center gap-2">
                         <Plus className="text-blue-400" /> Tambah Brosur Baru
                     </h2>
-                    <button onClick={onClose} className="text-gray-400 hover:text-white transition">
+                    <button onClick={handleClose} className="text-gray-400 hover:text-white transition">
                         <X />
                     </button>
                 </div>
@@ -269,7 +267,7 @@ export function TambahBrosurModal({ isOpen, onClose, onSuccess }) {
                     </div>
 
                     <div className="md:col-span-2 flex justify-end gap-3 pt-4 border-t border-blue-800 mt-2">
-                        <button type="button" onClick={onClose} className="px-4 py-2 rounded text-gray-300 hover:bg-white/10 transition">
+                        <button type="button" onClick={handleClose} className="px-4 py-2 rounded text-gray-300 hover:bg-white/10 transition">
                             Batal
                         </button>
                         <button 
