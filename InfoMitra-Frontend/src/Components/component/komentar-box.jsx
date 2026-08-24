@@ -12,7 +12,8 @@ export function KomentarBox() {
                 const data = await testimoniService.getPublic(); 
                 setTestimonis(data);
             } 
-            catch (error) {
+            catch {
+                setTestimonis([]);
             } 
             finally {
                 setLoading(false);

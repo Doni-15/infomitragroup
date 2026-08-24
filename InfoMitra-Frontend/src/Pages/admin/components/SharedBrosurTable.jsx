@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Search } from "./search.jsx";
 import { Kategori } from "./kategori.jsx";
 
@@ -22,7 +22,7 @@ export function SharedBrosurTable({ title, filterRule, badgeLabel }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         setLoading(true);
         try { 
             const response = await brosurService.getAllAdmin(); 
@@ -31,13 +31,13 @@ export function SharedBrosurTable({ title, filterRule, badgeLabel }) {
             setDataBrosur(filteredResponse);
             setFilteredData(filteredResponse);
         } 
-        catch (error) {
+        catch {
             toast.error("Gagal memuat data dari server.");
         } 
         finally {
             setLoading(false);
         }
-    };
+    }, [filterRule]);
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
@@ -63,7 +63,7 @@ export function SharedBrosurTable({ title, filterRule, badgeLabel }) {
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
 
     const handleOpenTambah = () => {
         setIsTambahModalOpen(true);

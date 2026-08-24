@@ -1,5 +1,4 @@
 import { LogoUsaha } from '@/Components';
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const menu = [
@@ -27,8 +26,6 @@ const menu = [
 ];
 
 export function SideBar(){
-    const [aktif, setAktif] =  useState(false);
-
     return(
         <>
             <section className="w-2/8 py-10 px-5 border-r-2 border-[var(--color-base-200)] fixed min-h-screen">

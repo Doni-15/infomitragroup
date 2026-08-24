@@ -6,7 +6,7 @@ import { SideBar } from "./components/sidebar.jsx"
 import { AdminProfil } from './components/admin-profil.jsx';
 
 
-export default function AdminDashboard({user, setUser}){
+export default function AdminDashboard({user}){
 
     return(
         <>
